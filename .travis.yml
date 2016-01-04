@@ -1,5 +1,7 @@
 sudo: required
 dist: trusty
+services:
+- docker
 
 language: c
 compiler:
@@ -10,7 +12,6 @@ addons:
     packages:
     - binutils-dev
     - zlib1g-dev
-    - libiberty-dev
 
 script:
 - make -C ./ipxe/src -j 4 bin/undionly.kpxe
