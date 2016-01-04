@@ -9,7 +9,6 @@ addons:
   apt:
     packages:
     - binutils-dev
-    # - zlib1g-dev
 
 script:
 - make -C ./ipxe/src -j 4 bin/undionly.kpxe
