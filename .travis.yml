@@ -12,15 +12,15 @@ addons:
 
 script:
 - make -C ./ipxe/src -j 4 bin/undionly.kpxe
-- make -C ./ipxe/src -j 4 bin-i386-efi/ipxe.efi
-- make -C ./ipxe/src -j 4 bin-x86_64-efi/ipxe.efi
+- make -C ./ipxe/src -j 4 bin-i386-efi/snponly.efi
+- make -C ./ipxe/src -j 4 bin-x86_64-efi/snponly.efi
 - cp ./ipxe/src/bin/undionly.kpxe .
-- cp ./ipxe/src/bin-i386-efi/ipxe.efi ipxe-x86.efi
-- cp ./ipxe/src/bin-x86_64-efi/ipxe.efi ipxe-x64.efi
-- md5sum undionly.kpxe ipxe-x86.efi ipxe-x64.efi | tee MD5SUMS
-- sha1sum undionly.kpxe ipxe-x86.efi ipxe-x64.efi | tee SHA1SUMS
-- sha256sum undionly.kpxe ipxe-x86.efi ipxe-x64.efi | tee SHA256SUMS
-- sha512sum undionly.kpxe ipxe-x86.efi ipxe-x64.efi | tee SHA512SUMS
+- cp ./ipxe/src/bin-i386-efi/snponly.efi snponly-x86.efi
+- cp ./ipxe/src/bin-x86_64-efi/snponly.efi snponly-x64.efi
+- md5sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee MD5SUMS
+- sha1sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA1SUMS
+- sha256sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA256SUMS
+- sha512sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA512SUMS
 
 deploy:
   provider: releases
@@ -28,8 +28,8 @@ deploy:
     secure: EOpuaJ/Xn3pdaqvmxFMVUmLeLWwijl8dO9hn9QLhk09D/7exUunq2Kdh2Iw7CK5jm0/9rtCvzgXKNzwPq9E/2ZvXmY0K51x0RmGL4OA5szuNrFK//qLsTq7xr2gudixHmGV5HvD2vReR4U2Xo/1ITLFzrRvqCsdWZaagRl0dCV0F9H5joEyBbfVj/6nin/urIrXRvUq7dPW7n899jffRfmE0ZXw2ER3R5FQ0gLlA18SFGwKHkf6spOirRsUY7+/lgn9n1CCrBTS0su+3cLn3X2SdOflJbjKiO/HadVk9hhvenR+QtJUUFFP9ghKj6d3DhnKXlk4Vgf/YihaVp4ztpjaOmiTM3ybfPpkg9ntiXpn6H4pj2JoSmkxtvfGOC4c04DuQBa9tTBGFruYcu56ZqlpjJ2GcifSU8l3N7P8HbviL4w2PUIad8GPXnXopKPPkjNnwR4CX/8ZAMIS80aVQoQcSXUqz5BPRzOTM2MdlNNdaMo2yYnk72kNLd6mbtdkzBDirgdLGL5c+KAv1iHun0/aW9X/o0m5AzA7AsA6yymJm9XbtFJmJ38W8UOhV7imrjJn38uBYTiJMjGMdIYMMpbjfsg82fhZJNq/suzZqGvwi3YRwLo31JhvElI+Yft3PguRykGPgtqHA+sFkitraBDsGvwfDfqYx9hC2Y9yrBDM=
   file:
   - undionly.kpxe
-  - ipxe-x86.efi
-  - ipxe-x64.efi
+  - snponly-x86.efi
+  - snponly-x64.efi
   - MD5SUMS
   - SHA1SUMS
   - SHA256SUMS
