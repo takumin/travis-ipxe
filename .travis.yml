@@ -1,24 +1,28 @@
-dist: xenial
+dist: bionic
 language: c
-compiler:
-- gcc
 
 addons:
   apt:
     packages:
     - binutils-dev
+    - gcc-arm-linux-gnueabihf
+    - gcc-aarch64-linux-gnu
 
 script:
 - make -C ./ipxe/src -j 4 bin/undionly.kpxe
 - make -C ./ipxe/src -j 4 bin-i386-efi/snponly.efi
 - make -C ./ipxe/src -j 4 bin-x86_64-efi/snponly.efi
+- make -C ./ipxe/src -j 4 CONFIG=rpi CROSS=arm-linux-gnueabihf- bin-arm32-efi/rpi.efi
+- make -C ./ipxe/src -j 4 CONFIG=rpi CROSS=aarch64-linux-gnu- bin-arm64-efi/rpi.efi
 - cp ./ipxe/src/bin/undionly.kpxe .
 - cp ./ipxe/src/bin-i386-efi/snponly.efi snponly-x86.efi
 - cp ./ipxe/src/bin-x86_64-efi/snponly.efi snponly-x64.efi
-- md5sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee MD5SUMS
-- sha1sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA1SUMS
-- sha256sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA256SUMS
-- sha512sum undionly.kpxe snponly-x86.efi snponly-x64.efi | tee SHA512SUMS
+- cp ./ipxe/src/bin-arm32-efi/rpi.efi rpi-arm32.efi
+- cp ./ipxe/src/bin-arm64-efi/rpi.efi rpi-arm64.efi
+- md5sum undionly.kpxe snponly-x86.efi snponly-x64.efi rpi-arm32.efi rpi-arm64.efi | tee MD5SUMS
+- sha1sum undionly.kpxe snponly-x86.efi snponly-x64.efi rpi-arm32.efi rpi-arm64.efi | tee SHA1SUMS
+- sha256sum undionly.kpxe snponly-x86.efi snponly-x64.efi rpi-arm32.efi rpi-arm64.efi | tee SHA256SUMS
+- sha512sum undionly.kpxe snponly-x86.efi snponly-x64.efi rpi-arm32.efi rpi-arm64.efi | tee SHA512SUMS
 
 deploy:
   provider: releases
@@ -28,6 +32,8 @@ deploy:
   - undionly.kpxe
   - snponly-x86.efi
   - snponly-x64.efi
+  - rpi-arm32.efi
+  - rpi-arm64.efi
   - MD5SUMS
   - SHA1SUMS
   - SHA256SUMS
